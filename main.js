@@ -1,9 +1,10 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage } = require("electron");
-const path = require("path");
+import { app, BrowserWindow, Tray, Menu, nativeImage } from "electron";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
 
 let mainWindow;
 
-const iconPath = path.join(__dirname, "libby.png");
+const iconPath = join(dirname(fileURLToPath(import.meta.url)), "libby.png");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -33,7 +34,7 @@ app.whenReady().then(() => {
   mainWindow = createWindow();
 
   const icon = nativeImage.createFromPath(iconPath);
-  tray = new Tray(icon);
+  let tray = new Tray(icon);
 
   const contextMenu = Menu.buildFromTemplate([
     { label: "Quit", click: () => app.exit(0) },
